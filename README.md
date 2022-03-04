@@ -59,13 +59,13 @@ You can directly download our test results from Google Drive: **[Deepfashion](ht
 
 **DeepFashion**
 ``` bash
-python test.py --name=DPTN_fashion --model=DPTN --dataset_mode=fashion --dataroot=./dataset/fashion --which_epoch latest --results_dir ./results/DPTN_fashion --batchSize 32 --gpu_id=0
+python test.py --name=DPTN_fashion --model=DPTN --dataset_mode=fashion --dataroot=./dataset/fashion --which_epoch latest --results_dir ./results/DPTN_fashion --batchSize 1 --gpu_id=0
 ```
 
 **Market1501**
 
 ``` bash
-python3 test.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroot=./dataset/market --which_epoch latest --results_dir=./results/DPTN_market  --batchSize 32 --gpu_id=0
+python3 test.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroot=./dataset/market --which_epoch latest --results_dir=./results/DPTN_market  --batchSize 1 --gpu_id=0
 ``` 
 
 ### 5) Evaluation
