@@ -9,9 +9,11 @@ The source code for our paper "Exploring Dual-task Correlation for Pose Guided P
 
 **Requirements**
 
-* Python 3
-* pytorch (1.0.0)
-* visdom
+* Python 3.7.9
+* pytorch 1.7.1
+* torchvision 0.8.2
+* CUDA 11.1
+* NVIDIA A100 40GB PCIe
 
 **Conda installation**
 
