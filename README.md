@@ -32,7 +32,7 @@ Following **[PATN](https://github.com/tengteng95/Pose-Transfer)**, the dataset s
 
 * Split the raw image into the training set (`./dataset/fashion/train`) and test set (`./dataset/fashion/test`):
 ``` bash
-python script/generate_fashion_datasets.py
+python data/generate_fashion_datasets.py
 ```
 
 **Market1501**
@@ -55,7 +55,7 @@ python3 train.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroo
 
 ### 4) Test the model
 
-You can directly download our test results from Google Drive: **[Deepfashion](https://drive.google.com/drive/folders/12Ufr8jkOwAIGVEamDedJy_ZWPvJZn8WG?usp=sharing)**, **[Market1501](https://drive.google.com/drive/folders/1YY_U2pMzLrZMTKoK8oBkMylR6KXnZJKP?usp=sharing)**.
+You can directly download our test results from Google Drive: **[Deepfashion](https://drive.google.com/drive/folders/1Y_Ar7w_CAYRgG2gzBg2vfxTCCen7q7k2?usp=sharing)**, **[Market1501](https://drive.google.com/drive/folders/15UBWEtGAqYaoEREIIeIuD-P4dRgsys19?usp=sharing)**.
 
 **DeepFashion**
 ``` bash
