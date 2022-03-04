@@ -32,7 +32,7 @@ Following **[PATN](https://github.com/tengteng95/Pose-Transfer)**, the dataset s
 ``` bash
 python script/generate_fashion_datasets.py
 ```
-* Download train/test pairs and train/test keypoints annotations from Google Drive or Baidu Disk, including **fasion-resize-pairs-train.csv, fasion-resize-pairs-test.csv, fasion-resize-annotation-train.csv, fasion-resize-annotation-train.csv**, and put them under the `./dataset/fashion` directory.
+* Download train/test pairs and train/test keypoints annotations from Google Drive or Baidu Disk, including **fasion-resize-pairs-train.csv, fasion-resize-pairs-test.csv, fasion-resize-annotation-train.csv, fasion-resize-annotation-train.csv, train.lst, test.lst**, and put them under the `./dataset/fashion` directory.
 
 **Market1501**
 
