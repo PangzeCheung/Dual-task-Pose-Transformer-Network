@@ -50,7 +50,7 @@ python train.py --name=DPTN_fashion --model=DPTN --dataset_mode=fashion --dataro
 **Market1501**
 
 ``` bash
-python3 train.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroot=./dataset/market --dis_layer=3 --lambda_g=5 --lambda_rec 2 --t_s_ratio=0.8 --save_latest_freq=10400 --batchSize 32 --gpu_id=0
+python train.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroot=./dataset/market --dis_layer=3 --lambda_g=5 --lambda_rec 2 --t_s_ratio=0.8 --save_latest_freq=10400 --batchSize 32 --gpu_id=0
 ```
 
 ### 4) Test the model
@@ -65,7 +65,7 @@ python test.py --name=DPTN_fashion --model=DPTN --dataset_mode=fashion --dataroo
 **Market1501**
 
 ``` bash
-python3 test.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroot=./dataset/market --which_epoch latest --results_dir=./results/DPTN_market  --batchSize 1 --gpu_id=0
+python test.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroot=./dataset/market --which_epoch latest --results_dir=./results/DPTN_market  --batchSize 1 --gpu_id=0
 ``` 
 
 ### 5) Evaluation
