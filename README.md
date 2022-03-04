@@ -89,5 +89,5 @@ Our pre-trained model can be downloaded from Google Drive: **[Deepfashion](https
 ```
 ## Acknowledgement 
 
-We build our project based on **[GLFA](https://github.com/RenYurui/Global-Flow-Local-Attention)**. Some dataset preprocessing methods are derived from **[PATN](https://github.com/tengteng95/Pose-Transfer)**.
+We build our project based on **[pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)**. Some dataset preprocessing methods are derived from **[PATN](https://github.com/tengteng95/Pose-Transfer)**.
 
