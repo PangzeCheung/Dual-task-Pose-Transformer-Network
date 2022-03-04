@@ -1,4 +1,4 @@
-# DPTN
+# Dual-task Pose Transformer Network
 The source code for our paper "Exploring Dual-task Correlation for Pose Guided Person Image Generation“ (CVPR2022)
 
 <img width="1148" alt="framework" src="https://user-images.githubusercontent.com/37894893/156797980-6387165c-3db8-48be-969f-011d3ecc3c05.png">
