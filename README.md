@@ -17,15 +17,7 @@ The source code for our paper "Exploring Dual-task Correlation for Pose Guided P
 **Conda installation**
 
 ```bash
-# 1. Create a conda virtual environment.
-conda create -n gfla python=3.6 -y
-source activate gfla
-
-# 2. Install dependency
-pip install -r requirement.txt
-
-# 3. Build pytorch Custom CUDA Extensions
-./setup.sh
+conda install -r requirement.txt
 ```
 
 ### 2) Data Preperation
