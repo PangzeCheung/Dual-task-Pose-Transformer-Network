@@ -35,18 +35,18 @@ Following **[PATN](https://github.com/tengteng95/Pose-Transfer)**, the dataset s
 **DeepFashion**
 
 
-* 1. Download the DeepFashion dataset **[in-shop clothes retrival benchmark](http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion/InShopRetrieval.html)**, and put them under the `./dataset/fashion` directory.
-* 2. Split the raw image into the training set (`./dataset/fashion/train`) and test set (`./dataset/fashion/test`):
+* Download the DeepFashion dataset **[in-shop clothes retrival benchmark](http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion/InShopRetrieval.html)**, and put them under the `./dataset/fashion` directory.
+* Split the raw image into the training set (`./dataset/fashion/train`) and test set (`./dataset/fashion/test`):
 ``` bash
 python script/generate_fashion_datasets.py
 ```
-* 3. Download train/test pairs and train/test keypoints annotations from Google Drive or Baidu Disk, including **fasion-resize-pairs-train.csv, fasion-resize-pairs-test.csv, fasion-resize-annotation-train.csv, fasion-resize-annotation-train.csv**, and put them under the `./dataset/fashion` directory.
+* Download train/test pairs and train/test keypoints annotations from Google Drive or Baidu Disk, including **fasion-resize-pairs-train.csv, fasion-resize-pairs-test.csv, fasion-resize-annotation-train.csv, fasion-resize-annotation-train.csv**, and put them under the `./dataset/fashion` directory.
 
 **Market1501**
 
-* 1. Download the Market1501 dataset from **[here](http://zheng-lab.cecs.anu.edu.au/Project/project_reid.html)**. Rename **bounding_box_train** and **bounding_box_test** as train and test, and put them under the `./dataset/market` directory.
+* Download the Market1501 dataset from **[here](http://zheng-lab.cecs.anu.edu.au/Project/project_reid.html)**. Rename **bounding_box_train** and **bounding_box_test** as train and test, and put them under the `./dataset/market` directory.
 
-* 2. Download train/test key points annotations from Google Drive including **market-pairs-train.csv, market-pairs-test.csv, market-annotation-train.csv, market-annotation-train.csv**. Put these files under the `./dataset/market` directory.
+* Download train/test key points annotations from Google Drive including **market-pairs-train.csv, market-pairs-test.csv, market-annotation-train.csv, market-annotation-train.csv**. Put these files under the `./dataset/market` directory.
 
 ### 3) Train a model
 
