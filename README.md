@@ -89,5 +89,5 @@ Our pre-trained model can be downloaded from Google Drive: **[Deepfashion](https
 ```
 ## Acknowledgement 
 
-We build our project based on (https://github.com/RenYurui/Global-Flow-Local-Attention & https://github.com/daa233/generative-inpainting-pytorch). Some dataset preprocessing methods are derived from (https://github.com/tengteng95/Pose-Transfer).
+We build our project based on **[GLFA](https://github.com/RenYurui/Global-Flow-Local-Attention)**. Some dataset preprocessing methods are derived from **[PATN](https://github.com/tengteng95/Pose-Transfer)**.
 
