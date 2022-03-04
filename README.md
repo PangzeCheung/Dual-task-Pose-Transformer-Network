@@ -84,7 +84,7 @@ python -m  metrics.metrics --gt_path=./dataset/market/test --distorated_path=./r
 
 ### 6) Pre-trained Model
 
-Our pre-trained model can be downloaded from Google Drive: **[Deepfashion](https://drive.google.com/drive/folders/1MZgOKYCMsn3hL4c8_DXxR7wS3liqV6MR?usp=sharing)**, **[Market1501](https://drive.google.com/drive/folders/1YY_U2pMzLrZMTKoK8oBkMylR6KXnZJKP?usp=sharing)**.
+Our pre-trained model can be downloaded from Google Drive: **[Deepfashion](https://drive.google.com/drive/folders/1qZDod3QDD7PaBxnNyHCuLBR7ftTSkSE1?usp=sharing)**, **[Market1501](https://drive.google.com/drive/folders/1YY_U2pMzLrZMTKoK8oBkMylR6KXnZJKP?usp=sharing)**.
 
 ## Citation
 
