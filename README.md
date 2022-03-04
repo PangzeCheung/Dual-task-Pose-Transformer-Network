@@ -16,7 +16,7 @@ The source code for our paper "Exploring Dual-task Correlation for Pose Guided P
 **Conda installation**
 
 ```bash
-conda install -r requirement.txt
+conda install --yes --file requirements.txt
 ```
 
 ### 2) Data Preperation
