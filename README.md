@@ -11,7 +11,6 @@ The source code for our paper "Exploring Dual-task Correlation for Pose Guided P
 
 * Python 3
 * pytorch (1.0.0)
-* CUDA
 * visdom
 
 **Conda installation**
