@@ -55,6 +55,8 @@ python3 train.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroo
 
 ### 4) Test the model
 
+You can directly download our test results from Google Drive: **[Deepfashion](https://drive.google.com/drive/folders/12Ufr8jkOwAIGVEamDedJy_ZWPvJZn8WG?usp=sharing)**, **[Market1501](https://drive.google.com/drive/folders/1YY_U2pMzLrZMTKoK8oBkMylR6KXnZJKP?usp=sharing)**.
+
 **DeepFashion**
 ``` bash
 python test.py --name=DPTN_fashion --model=DPTN --dataset_mode=fashion --dataroot=./dataset/fashion --which_epoch latest --results_dir ./results/DPTN_fashion --batchSize 32 --gpu_id=0
