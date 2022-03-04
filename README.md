@@ -5,21 +5,13 @@ The source code for our paper "Exploring Dual-task Correlation for Pose Guided P
 
 ## Get Start
 
-### 1) Installation
-
-**Requirements**
+### 1) Requirement
 
 * Python 3.7.9
 * pytorch 1.7.1
 * torchvision 0.8.2
 * CUDA 11.1
 * NVIDIA A100 40GB PCIe
-
-**Conda installation**
-
-```bash
-conda install --yes --file requirements.txt
-```
 
 ### 2) Data Preperation
 
