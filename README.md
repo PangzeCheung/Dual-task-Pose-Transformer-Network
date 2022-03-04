@@ -27,17 +27,19 @@ Following **[PATN](https://github.com/tengteng95/Pose-Transfer)**, the dataset s
 
 
 * Download the DeepFashion dataset **[in-shop clothes retrival benchmark](http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion/InShopRetrieval.html)**, and put them under the `./dataset/fashion` directory.
+
+* Download train/test pairs and train/test keypoints annotations from **[Google Drive](https://drive.google.com/drive/folders/1qZDod3QDD7PaBxnNyHCuLBR7ftTSkSE1?usp=sharing)**, including **fasion-resize-pairs-train.csv, fasion-resize-pairs-test.csv, fasion-resize-annotation-train.csv, fasion-resize-annotation-train.csv, train.lst, test.lst**, and put them under the `./dataset/fashion` directory.
+
 * Split the raw image into the training set (`./dataset/fashion/train`) and test set (`./dataset/fashion/test`):
 ``` bash
 python script/generate_fashion_datasets.py
 ```
-* Download train/test pairs and train/test keypoints annotations from Google Drive or Baidu Disk, including **fasion-resize-pairs-train.csv, fasion-resize-pairs-test.csv, fasion-resize-annotation-train.csv, fasion-resize-annotation-train.csv, train.lst, test.lst**, and put them under the `./dataset/fashion` directory.
 
 **Market1501**
 
 * Download the Market1501 dataset from **[here](http://zheng-lab.cecs.anu.edu.au/Project/project_reid.html)**. Rename **bounding_box_train** and **bounding_box_test** as **train** and **test**, and put them under the `./dataset/market` directory.
 
-* Download train/test key points annotations from Google Drive including **market-pairs-train.csv, market-pairs-test.csv, market-annotation-train.csv, market-annotation-train.csv**. Put these files under the `./dataset/market` directory.
+* Download train/test key points annotations from **[Google Drive](https://drive.google.com/drive/folders/1zzkimhX_D5gR1G8txTQkPXwdZPRcnrAx?usp=sharing)** including **market-pairs-train.csv, market-pairs-test.csv, market-annotation-train.csv, market-annotation-train.csv**. Put these files under the `./dataset/market` directory.
 
 ### 3) Train a model
 
@@ -82,7 +84,7 @@ python -m  metrics.metrics --gt_path=./dataset/market/test --distorated_path=./r
 
 ### 6) Pre-trained Model
 
-Our pre-trained model can be downloaded from Google Drive.
+Our pre-trained model can be downloaded from Google Drive: **[Deepfashion](https://drive.google.com/drive/folders/1MZgOKYCMsn3hL4c8_DXxR7wS3liqV6MR?usp=sharing)**, **[Market1501](https://drive.google.com/drive/folders/1YY_U2pMzLrZMTKoK8oBkMylR6KXnZJKP?usp=sharing)**.
 
 ## Citation
 
