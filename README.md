@@ -1,5 +1,5 @@
 # Dual-task Pose Transformer Network
-The source code for our paper "Exploring Dual-task Correlation for Pose Guided Person Image Generation“ (CVPR2022)
+The source code for our paper "[Exploring Dual-task Correlation for Pose Guided Person Image Generation](https://arxiv.org/abs/2203.02910)“ (CVPR2022)
 
 <img width="1148" alt="framework" src="https://user-images.githubusercontent.com/37894893/156797980-6387165c-3db8-48be-969f-011d3ecc3c05.png">
 
@@ -94,7 +94,14 @@ Our pre-trained model can be downloaded from Google Drive: **[Deepfashion](https
 ## Citation
 
 ```tex
-
+@misc{zhang2022exploring,
+      title={Exploring Dual-task Correlation for Pose Guided Person Image Generation}, 
+      author={Pengze Zhang and Lingxiao Yang and Jianhuang Lai and Xiaohua Xie},
+      year={2022},
+      eprint={2203.02910},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
 ```
 ## Acknowledgement 
 
