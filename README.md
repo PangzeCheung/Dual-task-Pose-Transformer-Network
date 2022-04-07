@@ -69,7 +69,7 @@ python test.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroot=
 
 ### 5) Evaluation
 
-We adopt SSIM, PSNR, FID, LPIPS and person re-identification (re-id) system for the evaluation.
+We adopt SSIM, PSNR, FID, LPIPS and person re-identification (re-id) system for the evaluation. Please clone the official repository **[PerceptualSimilarity](https://github.com/richzhang/PerceptualSimilarity/tree/future)** of the LPIPS score, and put the folder PerceptualSimilarity to the folder **[metrics](https://github.com/PangzeCheung/Dual-task-Pose-Transformer-Network/tree/main/metrics)**.
 
 * For SSIM, PSNR, FID and LPIPS:
 
