@@ -195,7 +195,7 @@ class DPTNGenerator(nn.Module):
 ##############################################################################
 # Discriminator
 ##############################################################################
-class ResnetDiscriminator(nn.Module):
+class ResDiscriminator(nn.Module):
     def __init__(self, input_nc = 3, ngf=64, img_f=1024, layers=3, norm='none', activarion='LeakyReLU', use_spect=True,
                  use_coord=False):
         assert (layers >= 0)
@@ -203,7 +203,7 @@ class ResnetDiscriminator(nn.Module):
         padding_type = 'reflect'
         use_sigmoid = False
 
-        super(ResnetDiscriminator, self).__init__()
+        super(ResDiscriminator, self).__init__()
         norm_layer = functools.partial(nn.InstanceNorm2d, affine=False)
         self.input_nc = input_nc
         self.ngf = ngf
