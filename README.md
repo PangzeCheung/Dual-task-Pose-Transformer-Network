@@ -35,6 +35,10 @@ python test.py --name=DPTN_fashion --model=DPTN --dataset_mode=fashion --dataroo
 python test.py --name=DPTN_market --model=DPTN --dataset_mode=market --dataroot=./dataset/market --which_epoch latest --results_dir=./results/DPTN_market  --batchSize 1 --gpu_id=0
 ```
 
+### 3）Evaluation
+
+Please refer to DPTN.
+
 ## Citation
 
 ```tex
