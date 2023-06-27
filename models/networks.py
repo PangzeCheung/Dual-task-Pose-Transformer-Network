@@ -195,43 +195,108 @@ class DPTNGenerator(nn.Module):
 ##############################################################################
 # Discriminator
 ##############################################################################
-class ResDiscriminator(nn.Module):
-    """
-    ResNet Discriminator Network
-    :param input_nc: number of channels in input
-    :param ndf: base filter channel
-    :param layers: down and up sample layers
-    :param img_f: the largest feature channels
-    :param norm: normalization function 'instance, batch, group'
-    :param activation: activation function 'ReLU, SELU, LeakyReLU, PReLU'
-    :param use_spect: use spectual normalization
-    :param use_coord: use coordConv operation
-    """
-    def __init__(self, input_nc=3, ndf=64, img_f=1024, layers=3, norm='none', activation='LeakyReLU', use_spect=True,
+class ResnetDiscriminator(nn.Module):
+    def __init__(self, input_nc = 3, ngf=64, img_f=1024, layers=3, norm='none', activarion='LeakyReLU', use_spect=True,
                  use_coord=False):
-        super(ResDiscriminator, self).__init__()
+        assert (layers >= 0)
+        n_downsampling = 2
+        padding_type = 'reflect'
+        use_sigmoid = False
 
-        self.layers = layers
+        super(ResnetDiscriminator, self).__init__()
+        norm_layer = functools.partial(nn.InstanceNorm2d, affine=False)
+        self.input_nc = input_nc
+        self.ngf = ngf
+        if type(norm_layer) == functools.partial:
+            use_bias = norm_layer.func == nn.InstanceNorm2d
+        else:
+            use_bias = norm_layer == nn.InstanceNorm2d
 
-        norm_layer = get_norm_layer(norm_type=norm)
-        nonlinearity = get_nonlinearity_layer(activation_type=activation)
-        self.nonlinearity = nonlinearity
+        model = [nn.ReflectionPad2d(3),
+                 nn.Conv2d(input_nc, ngf, kernel_size=7, padding=0,
+                           bias=use_bias),
+                 norm_layer(ngf),
+                 nn.ReLU(True)]
 
-        # encoder part
-        self.block0 = ResBlockEncoderOptimized(input_nc, ndf, ndf, norm_layer, nonlinearity, use_spect, use_coord)
+        # n_downsampling = 2
+        if n_downsampling <= 2:
+            for i in range(n_downsampling):
+                mult = 2 ** i
+                model += [nn.Conv2d(ngf * mult, ngf * mult * 2, kernel_size=3,
+                                    stride=2, padding=1, bias=use_bias),
+                          norm_layer(ngf * mult * 2),
+                          nn.ReLU(True)]
+        elif n_downsampling == 3:
+            mult = 2 ** 0
+            model += [nn.Conv2d(ngf * mult, ngf * mult * 2, kernel_size=3,
+                                stride=2, padding=1, bias=use_bias),
+                      norm_layer(ngf * mult * 2),
+                      nn.ReLU(True)]
+            mult = 2 ** 1
+            model += [nn.Conv2d(ngf * mult, ngf * mult * 2, kernel_size=3,
+                                stride=2, padding=1, bias=use_bias),
+                      norm_layer(ngf * mult * 2),
+                      nn.ReLU(True)]
+            mult = 2 ** 2
+            model += [nn.Conv2d(ngf * mult, ngf * mult, kernel_size=3,
+                                stride=2, padding=1, bias=use_bias),
+                      norm_layer(ngf * mult),
+                      nn.ReLU(True)]
 
-        mult = 1
-        for i in range(layers - 1):
-            mult_prev = mult
-            mult = min(2 ** (i + 1), img_f//ndf)
-            block = ResBlockEncoder(ndf*mult_prev, ndf*mult, ndf*mult_prev, norm_layer, nonlinearity, use_spect, use_coord)
-            setattr(self, 'encoder' + str(i), block)
-        self.conv = SpectralNorm(nn.Conv2d(ndf*mult, 1, 1))
+        if n_downsampling <= 2:
+            mult = 2 ** n_downsampling
+        else:
+            mult = 4
+        for i in range(layers):
+            model += [ResnetBlock(ngf * mult, padding_type=padding_type, norm_layer=norm_layer, use_dropout=False,
+                                  use_bias=use_bias)]
+
+        if use_sigmoid:
+            model += [nn.Sigmoid()]
+
+        self.model = nn.Sequential(*model)
+
+    def forward(self, input):
+        return self.model(input)
+
+
+class ResnetBlock(nn.Module):
+    def __init__(self, dim, padding_type, norm_layer, use_dropout, use_bias):
+        super(ResnetBlock, self).__init__()
+        self.conv_block = self.build_conv_block(dim, padding_type, norm_layer, use_dropout, use_bias)
+
+    def build_conv_block(self, dim, padding_type, norm_layer, use_dropout, use_bias):
+        conv_block = []
+        p = 0
+        if padding_type == 'reflect':
+            conv_block += [nn.ReflectionPad2d(1)]
+        elif padding_type == 'replicate':
+            conv_block += [nn.ReplicationPad2d(1)]
+        elif padding_type == 'zero':
+            p = 1
+        else:
+            raise NotImplementedError('padding [%s] is not implemented' % padding_type)
+
+        conv_block += [nn.Conv2d(dim, dim, kernel_size=3, padding=p, bias=use_bias),
+                       norm_layer(dim),
+                       nn.ReLU(True)]
+        if use_dropout:
+            conv_block += [nn.Dropout(0.5)]
+
+        p = 0
+        if padding_type == 'reflect':
+            conv_block += [nn.ReflectionPad2d(1)]
+        elif padding_type == 'replicate':
+            conv_block += [nn.ReplicationPad2d(1)]
+        elif padding_type == 'zero':
+            p = 1
+        else:
+            raise NotImplementedError('padding [%s] is not implemented' % padding_type)
+        conv_block += [nn.Conv2d(dim, dim, kernel_size=3, padding=p, bias=use_bias),
+                       norm_layer(dim)]
+
+        return nn.Sequential(*conv_block)
 
     def forward(self, x):
-        out = self.block0(x)
-        for i in range(self.layers - 1):
-            model = getattr(self, 'encoder' + str(i))
-            out = model(out)
-        out = self.conv(self.nonlinearity(out))
+        out = x + self.conv_block(x)
         return out
