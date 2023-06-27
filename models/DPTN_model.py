@@ -23,6 +23,7 @@ class DPTNModel(BaseModel):
         parser.add_argument('--use_coord', action='store_true', help='use coordconv')
         parser.add_argument('--lambda_style', type=float, default=500, help='weight for the VGG19 style loss')
         parser.add_argument('--lambda_content', type=float, default=0.5, help='weight for the VGG19 content loss')
+        parser.add_argument('--lambda_affi', type=float, default=100, help='weight for the VGG19 affinity loss')
         parser.add_argument('--layers_g', type=int, default=3, help='number of layers in G')
         parser.add_argument('--save_input', action='store_true', help="whether save the input images when testing")
         parser.add_argument('--num_blocks', type=int, default=3, help="number of resblocks")
@@ -45,7 +46,7 @@ class DPTNModel(BaseModel):
         BaseModel.__init__(self, opt)
         self.old_size = opt.old_size
         self.t_s_ratio = opt.t_s_ratio
-        self.loss_names = ['app_gen_s', 'content_gen_s', 'style_gen_s', 'app_gen_t', 'ad_gen_t', 'dis_img_gen_t', 'content_gen_t', 'style_gen_t']
+        self.loss_names = ['app_gen_s', 'content_gen_s', 'style_gen_s', 'app_gen_t', 'ad_gen_t', 'dis_img_gen_t', 'content_gen_t', 'style_gen_t', 'affi_gen_t']
         self.model_names = ['G']
         self.visual_names = ['source_image', 'source_pose', 'target_image', 'target_pose', 'fake_image_s', 'fake_image_t']
 
@@ -70,6 +71,7 @@ class DPTNModel(BaseModel):
             self.GANloss = external_function.GANLoss(opt.gan_mode).to(opt.device)
             self.L1loss = torch.nn.L1Loss()
             self.Vggloss = external_function.VGGLoss().to(opt.device)
+            self.Affinityloss = external_function.AffinityLoss().to(opt.device)
 
             # define the optimizer
             self.optimizer_G = torch.optim.Adam(itertools.chain(
@@ -142,25 +144,27 @@ class DPTNModel(BaseModel):
 
         # Calculate GAN loss
         loss_ad_gen = None
+        loss_affi_gen = None
         if use_d:
             base_function._freeze(self.net_D)
             D_fake = self.net_D(fake_image)
             loss_ad_gen = self.GANloss(D_fake, True, False) * self.opt.lambda_g
 
         # Calculate perceptual loss
-        loss_content_gen, loss_style_gen = self.Vggloss(fake_image, target_image)
+        loss_content_gen, loss_style_gen, loss_affi_gen = self.Affinityloss(fake_image, target_image, self.source_image)
         loss_style_gen = loss_style_gen * self.opt.lambda_style
         loss_content_gen = loss_content_gen * self.opt.lambda_content
+        loss_affi_gen = loss_affi_gen * self.opt.lambda_affi
 
-        return loss_app_gen, loss_ad_gen, loss_style_gen, loss_content_gen
+        return loss_app_gen, loss_ad_gen, loss_style_gen, loss_content_gen, loss_affi_gen
 
     def backward_G(self):
         base_function._unfreeze(self.net_D)
 
-        self.loss_app_gen_t, self.loss_ad_gen_t, self.loss_style_gen_t, self.loss_content_gen_t = self.backward_G_basic(self.fake_image_t, self.target_image, use_d = True)
+        self.loss_app_gen_t, self.loss_ad_gen_t, self.loss_style_gen_t, self.loss_content_gen_t, self.loss_affi_gen_t = self.backward_G_basic(self.fake_image_t, self.target_image, use_d = True)
 
-        self.loss_app_gen_s, self.loss_ad_gen_s, self.loss_style_gen_s, self.loss_content_gen_s = self.backward_G_basic(self.fake_image_s, self.source_image, use_d = False)
-        G_loss = self.t_s_ratio*(self.loss_app_gen_t+self.loss_style_gen_t+self.loss_content_gen_t) + (1-self.t_s_ratio)*(self.loss_app_gen_s+self.loss_style_gen_s+self.loss_content_gen_s)+self.loss_ad_gen_t
+        self.loss_app_gen_s, self.loss_ad_gen_s, self.loss_style_gen_s, self.loss_content_gen_s, _ = self.backward_G_basic(self.fake_image_s, self.source_image, use_d = False)
+        G_loss = self.t_s_ratio*(self.loss_app_gen_t+self.loss_style_gen_t+self.loss_content_gen_t+self.loss_affi_gen_t) + (1-self.t_s_ratio)*(self.loss_app_gen_s+self.loss_style_gen_s+self.loss_content_gen_s)+self.loss_ad_gen_t
         G_loss.backward()
 
     def optimize_parameters(self):
