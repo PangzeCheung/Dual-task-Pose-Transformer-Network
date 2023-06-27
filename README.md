@@ -99,14 +99,15 @@ Our pre-trained models and logs can be downloaded from Google Drive: **[Deepfash
 ## Citation
 
 ```tex
-@InProceedings{Zhang_2022_CVPR,
-    author    = {Zhang, Pengze and Yang, Lingxiao and Lai, Jian-Huang and Xie, Xiaohua},
-    title     = {Exploring Dual-Task Correlation for Pose Guided Person Image Generation},
-    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month     = {June},
-    year      = {2022},
-    pages     = {7713-7722}
-}
+@ARTICLE{10153661,
+  author={Zhang, Pengze and Yang, Lingxiao and Xie, Xiaohua and Lai, Jianhuang},
+  journal={IEEE Transactions on Visualization and Computer Graphics}, 
+  title={Pose Guided Person Image Generation via Dual-task Correlation and Affinity Learning}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-18},
+  doi={10.1109/TVCG.2023.3286394}}
 ```
 ## Acknowledgement 
 
