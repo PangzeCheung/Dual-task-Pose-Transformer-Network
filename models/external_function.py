@@ -217,10 +217,10 @@ class PerceptualLoss(nn.Module):
         return content_loss
 
 
-class CorrelationLoss(nn.Module):
+class AffinityLoss(nn.Module):
 
     def __init__(self, weights=[1.0, 1.0, 1.0, 1.0, 1.0]):
-        super(CorrelationLoss, self).__init__()
+        super(AffinityLoss, self).__init__()
         self.add_module('vgg', VGG19())
         self.criterion = torch.nn.L1Loss()
         self.weights = weights
@@ -233,7 +233,7 @@ class CorrelationLoss(nn.Module):
         G = f.bmm(f_T) / (h * w * ch)
         return G
 
-    def comput_correlation(self, x_vgg, y_vgg, source_vgg):
+    def comput_affinity(self, x_vgg, y_vgg, source_vgg):
         input_shape = list(x_vgg.shape)
 
         x_query = x_vgg.view(input_shape[0], -1, input_shape[2] * input_shape[3]).permute(0, 2, 1)  # B X N X C
@@ -284,11 +284,11 @@ class CorrelationLoss(nn.Module):
 
         source_vgg = self.vgg(source)
 
-        x_attention_5, y_attention_5 = self.comput_correlation(x_vgg['relu5_1'], y_vgg['relu5_1'], source_vgg['relu5_1'])
+        x_attention_5, y_attention_5 = self.comput_affinity(x_vgg['relu5_1'], y_vgg['relu5_1'], source_vgg['relu5_1'])
 
         correlation_loss += self.criterion(x_attention_5, y_attention_5)
 
-        x_attention_4, y_attention_4 = self.comput_correlation(x_vgg['relu4_1'], y_vgg['relu4_1'], source_vgg['relu4_1'])
+        x_attention_4, y_attention_4 = self.comput_affinity(x_vgg['relu4_1'], y_vgg['relu4_1'], source_vgg['relu4_1'])
 
         correlation_loss += self.criterion(x_attention_4, y_attention_4)
 
